@@ -13,7 +13,7 @@ import Data.Witherable (mapMaybe)
 import AStar (astar, FCost)
 import Linear.V2 (V2(..), _x, _y)
 import Graphics.Gloss (Picture, rectangleSolid, translate, white, display, Display(..), green, blue, red, color, play)
-import Graphics.Gloss.Interface.IO.Interact (Event(..), Key(..))
+import Graphics.Gloss.Interface.IO.Interact (Event(..), Key(..), KeyState(..))
 import qualified Data.Vector as V
 
 type Point = V2 Int
@@ -138,6 +138,6 @@ interactive = do
   play (InWindow "Noon" (4 * blockSize, 5 * blockSize) (10, 10)) white 1 is (uncurry renderWorld) handleEvent (\_ w -> w)
   where
     renderWorld bs n = renderBoard $ bs V.! n
-    handleEvent (EventKey (Char 'n') _ _ _) w = w & _2 +~ 1
-    handleEvent (EventKey (Char 'b') _ _ _) w = w & _2 -~ 1
+    handleEvent (EventKey (Char 'n') Up _ _) w = w & _2 +~ 1
+    handleEvent (EventKey (Char 'b') Up _ _) w = w & _2 -~ 1
     handleEvent _ w = w
